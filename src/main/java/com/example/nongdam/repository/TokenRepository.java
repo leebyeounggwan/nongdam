@@ -1,5 +1,6 @@
 package com.example.nongdam.repository;
 
+import com.example.nongdam.config.RedisConfig;
 import com.example.nongdam.entity.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,6 @@ import java.time.Duration;
 @Repository
 @RequiredArgsConstructor
 public class TokenRepository {
-
     private final RedisTemplate<String, RefreshToken> tokenRedisTemplate;
     private final static Duration TOKEN_CACHE_TTL = Duration.ofHours(3);
 

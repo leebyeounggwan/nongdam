@@ -2,6 +2,7 @@ package com.example.nongdam.service;
 
 //import com.example.nongdam.security.JwtProvider;
 //import com.example.nongdam.security.KakaoOauth;
+import com.example.nongdam.config.RestConfig;
 import com.example.nongdam.security.OAuthAttributes;
 import com.example.nongdam.entity.Member;
 import com.example.nongdam.exception.AuthenticationException;
