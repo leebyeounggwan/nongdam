@@ -1,15 +1,20 @@
 package com.example.nongdam.dto.response;
 
+import com.example.nongdam.FinalValue;
 import com.example.nongdam.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
 @Builder
 @AllArgsConstructor
+@ToString
 public class MemberInfoResponseDto {
 
     private int id;
@@ -17,9 +22,9 @@ public class MemberInfoResponseDto {
     private String nickname;
     private String email;
     private String address;
-    //private String profileImage;
+    private String profileImage;
     private int countryCode;
-    //private List<CropDto> crops = new ArrayList<>();
+    private List<CropDto> crops = new ArrayList<>();
 
     public MemberInfoResponseDto(Member member) {
         this.id = member.getId();
@@ -27,7 +32,7 @@ public class MemberInfoResponseDto {
         this.email = member.getEmail();
         this.address = member.getAddress();
         this.nickname = member.getNickname();
-        //this.profileImage = member.getProfileImage() == null ? FinalValue.BACK_URL + "/static/default.png" : member.getProfileImage();
+        this.profileImage = member.getProfileImage() == null ? FinalValue.BACK_URL + "/static/default.png" : member.getProfileImage();
         this.countryCode = member.getCountryCode();
         //member.getCrops().stream().forEach(e -> this.crops.add(new CropDto(e)));
     }

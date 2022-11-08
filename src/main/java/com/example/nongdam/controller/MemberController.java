@@ -4,7 +4,9 @@ import com.example.nongdam.dto.request.JoinMemberRequestDto;
 import com.example.nongdam.dto.request.LoginRequestDto;
 import com.example.nongdam.dto.response.JwtResponseDto;
 import com.example.nongdam.dto.response.MemberInfoResponseDto;
+import com.example.nongdam.exception.AuthenticationException;
 import com.example.nongdam.security.MemberDetail;
+import com.example.nongdam.service.KakaoService;
 import com.example.nongdam.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +20,30 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RequestMapping("/member")
 public class MemberController {
+    private final KakaoService ks;
     private final MemberService memberService;
+
 
     // 회원가입
     @PostMapping("")
     public void joinMember(@RequestBody JoinMemberRequestDto dto) {
         memberService.saveMember(dto);
+    }
+
+    // 로그인
+    @PostMapping("/login")
+    public String loginMember(@RequestBody LoginRequestDto dto, HttpServletResponse response) {
+        JwtResponseDto token = memberService.login(dto, response);
+        return "Bearer " + token.getToken();
+    }
+
+    //카카오로그인
+    @PostMapping("/auth")
+    public String accessTokenToMember(@RequestBody String t, HttpServletResponse response) throws AuthenticationException {
+
+        JwtResponseDto token = ks.kakaoLogin(t, response);
+
+        return token.getToken();
     }
 
     // 로그인 정보 조회
@@ -33,11 +53,4 @@ public class MemberController {
         return memberService.getMemberInfo(memberDetail.getMember());
     }
 
-    // 로그인
-    @PostMapping("/login")
-    public String loginMember(@RequestBody LoginRequestDto dto, HttpServletResponse response) {
-        System.out.println(dto.getEmail());
-        JwtResponseDto token = memberService.login(dto, response);
-        return "Bearer " + token.getToken();
-    }
 }

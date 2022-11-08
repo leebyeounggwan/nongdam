@@ -1,5 +1,7 @@
 package com.example.nongdam.service;
 
+import com.example.nongdam.annotation.UseCache;
+import com.example.nongdam.dto.response.NewsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,32 +32,6 @@ public class NewsService {
     @Value("${news.naver.api.client-secret}")
     private String clientSecret;
 
-    private String query = "농사";
-    private int count = 20;
-    private String url = apiUrl+"?query="+query+"&display="+count;
-
-
-    public String requestNaverNews() {
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Naver-Client-Id", clientId);
-        headers.set("X-Naver-Client-Secret", clientSecret);
-        HttpEntity entity = new HttpEntity(headers);
-
-
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity,String.class);
-
-        return response.getBody();
-
-    }
-
-    public void getNews() {
-
-    }
-
-
-
-/*
     private String getNewsData(String query, int count){
         RestTemplate template = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -73,11 +49,6 @@ public class NewsService {
         String object = response.getBody();
         return object;
     }
-    //    private NewsResponseDto jsonToNewsResponseDto(JSONObject o) throws IOException, ParseException {
-//        NewsResponseDto dto = new NewsResponseDto(o);
-//        dto.setTime();
-//        return dto;
-//    }
     @UseCache(cacheKey = "tmp", ttl = 30L,unit= TimeUnit.MINUTES,timeData = false)
     public List<NewsResponseDto> getNewsInfo(String tmp) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
@@ -97,5 +68,6 @@ public class NewsService {
                 break;
         }
         return ret;
-    }*/
+    }
+
 }

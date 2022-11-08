@@ -33,8 +33,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, RefreshToken> tokenRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, RefreshToken> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<?, ?> tokenRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RefreshToken.class));
@@ -42,16 +42,6 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-//    @Bean
-//    public RedisTemplate<?, ?> redisTemplate( RedisConnectionFactory redisConnectionFactory) {
-//
-//        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
-//        // 레디스 서버와의 연결정보
-//        redisTemplate.setConnectionFactory(redisConnectionFactory);
-//
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RefreshToken.class));
-//        return redisTemplate;
-//    }
+
 
 }

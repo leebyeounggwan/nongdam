@@ -11,9 +11,8 @@ import com.example.nongdam.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class MemberService {
     private final BCryptPasswordEncoder encoder;
     private final MemberRepository memberRepository;
     private final JwtProvider provider;
-    private final TokenRepository tokenRepository;
+
 
 
     public void checkEmail (String email) {

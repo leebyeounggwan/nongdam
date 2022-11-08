@@ -1,6 +1,7 @@
 package com.example.nongdam.security;
 
 
+import com.example.nongdam.annotation.UseCache;
 import com.example.nongdam.dto.response.JwtResponseDto;
 import com.example.nongdam.entity.Member;
 import com.example.nongdam.entity.RefreshToken;
@@ -18,6 +19,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @Component
@@ -26,11 +28,10 @@ import java.util.Map;
 public class JwtProvider {
 
     private final String JWT_SECRET = Base64.getEncoder().encodeToString("NongDam".getBytes());
-    //    private final long ValidTime = 1000L * 30;
+
     private final long ValidTime = 1000L * 60 * 60;
     private final long refreshValidTime = 1000L * 60 * 60 * 24;
     private final MemberRepository memberRepository;
-
     private final TokenRepository tokenRepository;
 
 //    private QueryDslRepository queryDsl;
@@ -118,7 +119,7 @@ public class JwtProvider {
         Member member = getMember(id);
         return new MemberDetail(member);
     }
-    //@UseCache(cacheKey = "id", ttl = 2L,unit = TimeUnit.HOURS,timeData = true)
+//    @UseCache(cacheKey = "id", ttl = 2L,unit = TimeUnit.HOURS,timeData = true)
     public Member getMember(int id){
 
         return memberRepository.findById(id).orElseThrow(null);

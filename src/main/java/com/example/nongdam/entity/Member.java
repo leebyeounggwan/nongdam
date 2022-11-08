@@ -2,10 +2,13 @@ package com.example.nongdam.entity;
 
 
 import com.example.nongdam.dto.request.JoinMemberRequestDto;
+import com.example.nongdam.security.OAuthAttributes;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -45,11 +48,20 @@ public class Member extends TimeStamp {
     @Builder.Default
     private boolean isLock = false;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Crop> crops = new ArrayList<>();
+
     public Member(JoinMemberRequestDto dto) {
         this.name = dto.getName();
         this.email = dto.getEmail();
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
+    }
+
+    public void updateMember(OAuthAttributes attributes) {
+        this.name = attributes.getName();
+        this.profileImage = attributes.getPicture();
     }
 
 //    public Member build(BCryptPasswordEncoder encoder, JoinMemberRequestDto dto) {
@@ -61,9 +73,7 @@ public class Member extends TimeStamp {
 //                .build();
 //    }
 
-    //    @ManyToMany(fetch = FetchType.LAZY)
-//    @Builder.Default
-//    private List<Crop> crops = new ArrayList<>();
+
 
 //    public void changePassword(String password){
 //        this.password = password;
