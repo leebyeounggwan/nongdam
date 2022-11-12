@@ -20,10 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeatherController {
 
     private final OpenWeatherApiService openWeatherApiService;
+    private final GeoService geoService;
 
     @GetMapping("")
 
     public WeatherResponse getWeather(@AuthenticationPrincipal MemberDetail memberdetail) throws Exception {
         return openWeatherApiService.getWeather(memberdetail,memberdetail.getMember().getId());
+    }
+
+    @GetMapping("/geo")
+
+    public String[] getGeo() throws Exception {
+        return geoService.parseGeo("서울시 강서구 화곡로 320");
     }
 }

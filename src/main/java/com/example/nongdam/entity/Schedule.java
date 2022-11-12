@@ -4,6 +4,10 @@ package com.example.nongdam.entity;
 //import com.example.formproject.dto.request.ScheduleRequestDto;
 //import com.example.formproject.exception.WrongArgumentException;
 //import com.example.formproject.repository.CropRepository;
+import com.example.nongdam.FinalValue;
+import com.example.nongdam.dto.request.ScheduleRequestDto;
+import com.example.nongdam.exception.WrongArgumentException;
+import com.example.nongdam.repository.CropRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,12 +43,12 @@ public class Schedule {
     @JoinColumn
     private Member member;
 
-//    public void update(ScheduleRequestDto dto, CropRepository repository) throws WrongArgumentException {
-//        this.startTime = LocalDateTime.parse(dto.getStartTime(), FinalValue.DAYTIME_FORMATTER);
-//        this.endTime = LocalDateTime.parse(dto.getEndTime(), FinalValue.DAYTIME_FORMATTER);
-//        if(this.startTime.isAfter(endTime))
-//            throw new WrongArgumentException("잘못된 입력입니다.","시작/끝 시간");
-//        this.crop = repository.findById(dto.getCropId()).orElseThrow(()->new IllegalArgumentException("작물 정보를 찾을 수 없습니다."));
-//        this.toDo = dto.getToDo();
-//    }
+    public void update(ScheduleRequestDto dto, CropRepository repository) throws WrongArgumentException {
+        this.startTime = LocalDateTime.parse(dto.getStartTime(), FinalValue.DAYTIME_FORMATTER);
+        this.endTime = LocalDateTime.parse(dto.getEndTime(), FinalValue.DAYTIME_FORMATTER);
+        if(this.startTime.isAfter(endTime))
+            throw new WrongArgumentException("잘못된 입력입니다.","시작/끝 시간");
+        this.crop = repository.findById(dto.getCropId()).orElseThrow(()->new IllegalArgumentException("작물 정보를 찾을 수 없습니다."));
+        this.toDo = dto.getToDo();
+    }
 }

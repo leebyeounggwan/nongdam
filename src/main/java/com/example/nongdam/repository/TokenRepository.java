@@ -18,7 +18,7 @@ public class TokenRepository {
 
     public void setToken(RefreshToken token) {
         String key = getKey(token.getToken());
-        log.info("Set Token to Redis {}:{}", key, token);
+        log.info("Set Token to Redis {} : {}", key, token);
         tokenRedisTemplate.opsForValue().set(key, token, TOKEN_CACHE_TTL);
     }
 

@@ -2,16 +2,21 @@ package com.example.nongdam.controller;
 
 import com.example.nongdam.dto.request.JoinMemberRequestDto;
 import com.example.nongdam.dto.request.LoginRequestDto;
+import com.example.nongdam.dto.request.MemberInfoRequestDto;
 import com.example.nongdam.dto.response.JwtResponseDto;
 import com.example.nongdam.dto.response.MemberInfoResponseDto;
 import com.example.nongdam.exception.AuthenticationException;
 import com.example.nongdam.security.MemberDetail;
 import com.example.nongdam.service.KakaoService;
 import com.example.nongdam.service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,9 +53,22 @@ public class MemberController {
 
     // 로그인 정보 조회
     @GetMapping("")
-    public MemberInfoResponseDto getMember(@AuthenticationPrincipal MemberDetail memberDetail) {
+    public MemberInfoResponseDto getMember(@AuthenticationPrincipal MemberDetail memberDetail) throws AuthenticationException {
+        if(memberDetail == null)
+            throw new AuthenticationException("로그인이 필요한 서비스 입니다.","member info");
 
         return memberService.getMemberInfo(memberDetail.getMember());
+    }
+
+    @PutMapping("")
+    public ResponseEntity<?> updateMember(@RequestPart(value = "profileImage", required = false) MultipartFile profileImage,
+                                          @RequestPart String data,
+                                          @AuthenticationPrincipal MemberDetail memberDetails) throws JsonProcessingException, AuthenticationException {
+        ObjectMapper mapper = new ObjectMapper();
+        if(memberDetails == null)
+            throw new AuthenticationException("로그인이 필요한 서비스 입니다.","update member");
+        MemberInfoRequestDto requestDto = mapper.readValue(data, MemberInfoRequestDto.class);
+        return memberService.updateMember(memberDetails.getMember().getProfileImage(), memberDetails.getMember().getId(), profileImage, requestDto, memberDetails.getMember().getEmail());
     }
 
 }

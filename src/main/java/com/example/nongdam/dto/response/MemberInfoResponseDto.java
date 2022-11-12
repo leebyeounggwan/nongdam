@@ -5,7 +5,7 @@ import com.example.nongdam.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-@ToString
 public class MemberInfoResponseDto {
 
     private int id;
@@ -34,6 +33,6 @@ public class MemberInfoResponseDto {
         this.nickname = member.getNickname();
         this.profileImage = member.getProfileImage() == null ? FinalValue.BACK_URL + "/static/default.png" : member.getProfileImage();
         this.countryCode = member.getCountryCode();
-        //member.getCrops().stream().forEach(e -> this.crops.add(new CropDto(e)));
+        member.getCrops().forEach(e -> this.crops.add(new CropDto(e)));
     }
 }

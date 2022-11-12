@@ -33,7 +33,7 @@ public class GeoService {
     private String key;
 
     public String getGeo(String address) {
-
+        System.out.println(key);
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("service","address");
         params.add("request","getcoord");

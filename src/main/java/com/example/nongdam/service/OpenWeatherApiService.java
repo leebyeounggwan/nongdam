@@ -18,16 +18,16 @@ import org.springframework.util.MultiValueMap;
 public class OpenWeatherApiService {
     private final OpenApiService openApiService;
     private final GeoService geoService;
-    @Value("${geocoder.api.url}")
+    @Value("${weather.api.url}")
     private String baseURL;
 
-    @Value("${geocoder.api.key}")
+    @Value("${weather.api.key}")
     private String key;
 
     //@UseCache(ttl = 0L,cacheKey = "cacheKey",unit = TimeUnit.MINUTES,timeData = false)
     public WeatherResponse getWeather(MemberDetail memberdetail, int cacheKey) throws Exception {
 
-        String address = (!memberdetail.getMember().getAddress().isEmpty()) ? memberdetail.getMember().getAddress() : "서울 송파구 양재대로 932";
+        String address = (!memberdetail.getMember().getAddress().isEmpty()) ? memberdetail.getMember().getAddress() : "서울시 강서구 화곡로 320";
         String[] coords = geoService.parseGeo(address);
 
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
@@ -41,6 +41,7 @@ public class OpenWeatherApiService {
         String result = openApiService.callAPI(params, baseURL);
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(result);
+        System.out.println("obj = " + obj);
 
         // 현재 기온
         CurrentTempDto currentTempDto = currentTempParse(obj, address);

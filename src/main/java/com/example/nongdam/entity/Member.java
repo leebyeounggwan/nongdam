@@ -2,13 +2,17 @@ package com.example.nongdam.entity;
 
 
 import com.example.nongdam.dto.request.JoinMemberRequestDto;
+import com.example.nongdam.dto.request.MemberInfoRequestDto;
+import com.example.nongdam.repository.CropRepository;
 import com.example.nongdam.security.OAuthAttributes;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Entity
@@ -16,7 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Member extends TimeStamp {
 
     @Id
@@ -26,7 +29,8 @@ public class Member extends TimeStamp {
     @Column
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
+    @NotNull
     private String email;
 
     @Column
@@ -48,30 +52,14 @@ public class Member extends TimeStamp {
     @Builder.Default
     private boolean isLock = false;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @Builder.Default
     private List<Crop> crops = new ArrayList<>();
-
-    public Member(JoinMemberRequestDto dto) {
-        this.name = dto.getName();
-        this.email = dto.getEmail();
-        this.password = dto.getPassword();
-        this.nickname = dto.getNickname();
-    }
 
     public void updateMember(OAuthAttributes attributes) {
         this.name = attributes.getName();
         this.profileImage = attributes.getPicture();
     }
-
-//    public Member build(BCryptPasswordEncoder encoder, JoinMemberRequestDto dto) {
-//        return Member.builder()
-//                .name(dto.getName())
-//                .email(dto.getEmail())
-//                .password(dto.getPassword())
-//                .nickname(dto.getNickname())
-//                .build();
-//    }
 
 
 
@@ -83,26 +71,26 @@ public class Member extends TimeStamp {
 //        this.profileImage = attributes.getPicture();
 //    }
 //
-//    public void updateMember(MemberInfoRequestDto requestDto, Map<String, String> profileImage, CropRepository repository) {
-//        this.nickname = requestDto.getNickname() == null ? nickname : requestDto.getNickname();
-//        this.address = requestDto.getAddress() == null ? address : requestDto.getAddress();
-//        this.countryCode = requestDto.getCountryCode() == 0 ? countryCode : requestDto.getCountryCode();
-//        this.profileImage = profileImage.get("url");
-//        this.crops.clear();
-//        List<Crop> cr = repository.findAllIds(requestDto.getCrops());
-//        this.crops.addAll(cr);
-//    }
+    public void updateMember(MemberInfoRequestDto requestDto, Map<String, String> profileImage, CropRepository repository) {
+        this.nickname = requestDto.getNickname() == null ? nickname : requestDto.getNickname();
+        this.address = requestDto.getAddress() == null ? address : requestDto.getAddress();
+        this.countryCode = requestDto.getCountryCode() == 0 ? countryCode : requestDto.getCountryCode();
+        this.profileImage = profileImage.get("url");
+        this.crops.clear();
+        List<Crop> cr = repository.findAllIds(requestDto.getCrops());
+        this.crops.addAll(cr);
+    }
 //
-//    public void updateMember(MemberInfoRequestDto requestDto, String defaultImage, CropRepository repository) {
-//        // 프로필 사진 없이 업데이트
-//        this.nickname = requestDto.getNickname() == null ? nickname : requestDto.getNickname();
-//        this.address = requestDto.getAddress() == null ? address : requestDto.getAddress();
-//        this.countryCode = requestDto.getCountryCode() == 0 ? countryCode : requestDto.getCountryCode();
-//        this.profileImage = defaultImage; //기존 이미지
-//        this.crops.clear();
-//        List<Crop> cr = repository.findAllIds(requestDto.getCrops());
-//        this.crops.addAll(cr);
-//    }
+    public void updateMember(MemberInfoRequestDto requestDto, String defaultImage, CropRepository repository) {
+        // 프로필 사진 없이 업데이트
+        this.nickname = requestDto.getNickname() == null ? nickname : requestDto.getNickname();
+        this.address = requestDto.getAddress() == null ? address : requestDto.getAddress();
+        this.countryCode = requestDto.getCountryCode() == 0 ? countryCode : requestDto.getCountryCode();
+        this.profileImage = defaultImage; //기존 이미지
+        this.crops.clear();
+        List<Crop> cr = repository.findAllIds(requestDto.getCrops());
+        this.crops.addAll(cr);
+    }
 //
 //    public void enableId() {
 //        if (isLock)
