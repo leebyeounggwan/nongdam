@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface CropRepository extends JpaRepository<Crop, Integer> {
+
     @Query("Select this_ from Crop this_ order by this_.category, this_.type")
     List<Crop> findAllOrderByCategoryAndType();
 

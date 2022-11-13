@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member,Integer> {
+public interface MemberRepository extends JpaRepository<Member,Integer>, MemberRepositoryCustom {
     Optional<Member> findByEmail(String email);
     @Query("select this_.crops from Member this_ where this_.id=:id")
     List<Crop> findAllByMember(int id);

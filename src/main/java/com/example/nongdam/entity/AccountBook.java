@@ -2,6 +2,8 @@ package com.example.nongdam.entity;
 
 //import com.example.formproject.FinalValue;
 //import com.example.formproject.dto.request.AccountRequestDto;
+import com.example.nongdam.FinalValue;
+import com.example.nongdam.dto.request.AccountRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,10 +40,10 @@ public class AccountBook {
     @JoinColumn
     private Member member;
 
-//    public void update(AccountRequestDto dto){
-//        this.type = dto.getType();
-//        this.price = dto.getPrice();
-//        this.memo = dto.getMemo();
-//        this.date = LocalDate.parse(dto.getDate(), FinalValue.DAY_FORMATTER);
-//    }
+    public void update(AccountRequestDto dto){
+        this.type = dto.getType();
+        this.price = dto.getPrice();
+        this.memo = dto.getMemo();
+        this.date = LocalDate.parse(dto.getDate(), FinalValue.DAY_FORMATTER);
+    }
 }
