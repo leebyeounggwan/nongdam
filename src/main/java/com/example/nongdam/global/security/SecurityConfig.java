@@ -28,18 +28,18 @@ import java.io.PrintWriter;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAuthFilter jwtFilter;
-    //private final OAuthLoginProvider oauthProvider;
-    //private final OAuth2AuthSuccessHanler successHandler;
+    private final OAuthLoginProvider oauthProvider;
+    private final OAuth2AuthSuccessHanler successHandler;
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/css/**", "/fonts/**", "/img/**", "/js/**", "/close", "/webjars/**", "/manage/**");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring().antMatchers("/css/**", "/fonts/**", "/img/**", "/js/**", "/close", "/webjars/**", "/manage/**");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.httpBasic().disable();
+        //httpSecurity.httpBasic().disable();
         httpSecurity
                 .cors()
                 .and()
@@ -61,12 +61,12 @@ public class SecurityConfig {
                         "/static/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .oauth2Login()
-//                .userInfoEndpoint()
-//                .userService(oauthProvider)
-//                .and()
-//                .successHandler(successHandler)
-//                .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(oauthProvider)
+                .and()
+                .successHandler(successHandler)
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
                     @Override

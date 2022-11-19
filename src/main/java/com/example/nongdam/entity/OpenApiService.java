@@ -20,13 +20,24 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class OpenApiService {
 
-    public String callAPI(MultiValueMap<String, String> params, String baseURL) {
+    public String callAPI(MultiValueMap<String, String> params, String baseURL, String s) {
+        if (s.equals("post")) {
+            Mono<String> jsonObjectMono = WebClient.builder().baseUrl(baseURL)
+                    .build().post()
+                    .uri(builder -> builder.queryParams(params).build())
+                    .exchangeToMono(response -> response.bodyToMono(String.class));
+            return jsonObjectMono.block();
+        } else if (s.equals("get")) {
+            Mono<String> jsonObjectMono = WebClient.builder().baseUrl(baseURL)
+                    .build().get()
+                    .uri(builder -> builder.queryParams(params).build())
+                    .retrieve().bodyToMono(String.class);
+            //.exchangeToMono(response -> response.bodyToMono(String.class));
+            return jsonObjectMono.block();
+        } else {
+            throw new IllegalArgumentException("api 호출 에러");
+        }
 
-        Mono<String> jsonObjectMono = WebClient.builder().baseUrl(baseURL)
-                .build().post()
-                .uri(builder -> builder.queryParams(params).build())
-                .exchangeToMono(response -> response.bodyToMono(String.class));
-        return jsonObjectMono.block();
     }
 
     public JSONObject ApiCall(StringBuilder apiURL) throws IOException, ParseException {

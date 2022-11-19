@@ -39,10 +39,9 @@ public class OpenWeatherApiService {
         params.add("lang","kr");
 
 
-        String result = openApiService.callAPI(params, baseURL);
+        String result = openApiService.callAPI(params, baseURL, "post");
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(result);
-        System.out.println("obj = " + obj);
 
         // 현재 기온
         CurrentTempDto currentTempDto = currentTempParse(obj, address);
