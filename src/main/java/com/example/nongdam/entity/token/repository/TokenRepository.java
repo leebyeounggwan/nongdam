@@ -17,14 +17,14 @@ public class TokenRepository {
 
     public void setToken(RefreshToken token) {
         String key = getKey(token.getToken());
-        log.info("Set Token to Redis {} : {}", key, token);
+        //log.info("Set Token to Redis {} : {}", key, token);
         tokenRedisTemplate.opsForValue().set(key, token, TOKEN_CACHE_TTL);
     }
 
     public RefreshToken getToken(String token) {
         String key = getKey(token);
         RefreshToken refreshToken = tokenRedisTemplate.opsForValue().get(key);
-        log.info("Get data from Redis {}:{}", key, token);
+        //log.info("Get data from Redis {}:{}", key, token);
         return refreshToken;
     }
 
