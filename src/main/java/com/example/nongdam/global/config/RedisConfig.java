@@ -3,6 +3,7 @@ package com.example.nongdam.global.config;
 import com.example.nongdam.entity.token.entity.RefreshToken;
 import io.lettuce.core.RedisURI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,13 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @RequiredArgsConstructor
 public class RedisConfig {
 
-    private final RedisProperties redisProperties;
+    //private final RedisProperties redisProperties;
+//    @Value("${spring.redis.url}")
+//    private RedisURI redisURI;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        RedisURI redisURI = RedisURI.create(redisProperties.getUrl());
+        RedisURI redisURI = RedisURI.create("redis://127.0.0.1:6379");
         RedisConfiguration configuration = LettuceConnectionFactory.createRedisConfiguration(redisURI);
         LettuceConnectionFactory factory = new LettuceConnectionFactory(configuration);
         factory.afterPropertiesSet();

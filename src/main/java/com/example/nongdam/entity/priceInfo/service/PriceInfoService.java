@@ -188,7 +188,6 @@ public class PriceInfoService {
             JSONParser parser = new JSONParser();
             return (JSONObject) parser.parse(result);
         } catch (Exception e) {
-            log.info("시세 api 호출 에러@@@@@@@@@@@");
             log.error(e.getMessage());
         }
         return null;
