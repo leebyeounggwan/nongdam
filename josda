@@ -1,0 +1,71 @@
+[33mcommit 34f54112e342da31b128ae80201968ef3976d527[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sun Nov 20 00:01:40 2022 +0900
+
+    refactor: restTemplate -> webClient 변경
+
+[33mcommit c49c0ef99480b71bd2e20a07398b0805f36ef7ea[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sun Nov 13 21:18:58 2022 +0900
+
+    refactor: 프로젝트 구조 변경
+
+[33mcommit 9307f77ef8d02245e4faeea6e172670d77ad2adf[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sun Nov 13 19:58:48 2022 +0900
+
+    feat: 장부/일정/현황 기능 구현
+
+[33mcommit fd2d183ac942056305db24a59b9f3540a4c14a9c[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sat Nov 12 23:30:49 2022 +0900
+
+    feat: 시세, 일정 기능 구현
+
+[33mcommit 5cdff9ce95136d1c0fea549db4a86bb9851f1cbf[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Wed Nov 9 03:12:26 2022 +0900
+
+    feat: 날씨 api 구현
+
+[33mcommit 1012244924e43d1f2ba2efdd7ffcb5abaad33a8e[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Mon Oct 31 16:23:23 2022 +0900
+
+    feat : 엔티티 추가
+
+[33mcommit fa21658bbc8c74f1f006af47ab7aab4ab60c5c03[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Wed Oct 26 01:10:12 2022 +0900
+
+    feat: jwt토큰 인증 및 redis 캐싱 구현
+
+[33mcommit 521d96f43d87c481e8010cfd0d11ad109074f7e5[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sun Oct 23 20:34:42 2022 +0900
+
+    feat: 카카오 로그인/회원가입 및 일반 로그인 구현
+
+[33mcommit 8bd0c08f449fb9194937e59eb60695fd1703c632[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Mon Oct 17 19:47:12 2022 +0900
+
+    add : news table, repository 생성
+
+[33mcommit bb6a6a66951a915450db37673bf73c7930d10961[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Mon Oct 17 19:43:42 2022 +0900
+
+    change : 데이터베이스 로컬에서 aws RDS로 변경
+
+[33mcommit 7ffa1c277b82af5c21f2a0afaf27f6a0f86d5a51[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sun Oct 16 14:00:20 2022 +0900
+
+    test commit
+
+[33mcommit 0c509944191911b087a5d27f1cb088d5080372ef[m
+Author: leebyeounggwan <gwan0622@gmail.com>
+Date:   Sat Oct 15 12:12:03 2022 +0900
+
+    first commit

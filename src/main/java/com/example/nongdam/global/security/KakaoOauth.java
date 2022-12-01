@@ -13,6 +13,6 @@ public class KakaoOauth {
     private String KAKAO_USER_INFO_URL;
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_CLIENT_ID;
-    private final String REDIRECT_URI = "http://localhost:3000/code/auth";
+    private final String REDIRECT_URI = "https://localhost:3000/code/auth";
 
 }
